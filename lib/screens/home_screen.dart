@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,13 +9,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
 
-  final PageController pageController = new PageController(initialPage: 0);
+  final PageController pageController =
+      new PageController(initialPage: 1); //Dice en que tab iniciar
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Material App Bar $currentPage'),
+        title: currentPage == 0
+            ? Text("User")
+            : currentPage == 1
+                ? Text("Settings")
+                : Text("Notifications"),
+        // Text('Material App Bar $currentPage'),
         foregroundColor: Colors.black,
         elevation: 0,
         backgroundColor: Colors.blue.shade50,
@@ -28,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             NeverScrollableScrollPhysics(), //No se puede hacer Scroll de manera manual
         children: [
           CustomScreen(color: Colors.blue.shade50, texto: "User"),
-          CustomScreen(color: Colors.red, texto: "Settings"),
+          SettingsScreen(),
           CustomScreen(color: Colors.blue.shade50, texto: "Notifications")
         ],
       ),
@@ -83,3 +90,20 @@ class CustomScreen extends StatelessWidget {
     );
   }
 }
+
+// class SettingsScreen extends StatelessWidget {
+//   final Color color;
+//   final String texto;
+
+//   const SettingsScreen({required this.color, required this.texto});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: color,
+//       child: Center(
+//         child: Text('Hola mundo $texto'),
+//       ),
+//     );
+//   }
+// }
