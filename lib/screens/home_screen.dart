@@ -18,16 +18,24 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blue.shade50,
       ),
 
-      //Cambiar pantalla con movimiento
-      // body: PageView(
-      //   children: [
-      //     CustomScreen(color: Colors.blue.shade50),
-      //     CustomScreen(color: Colors.red),
-      //     CustomScreen(color: Colors.blue.shade50)
-      //   ],
-      // ),
+      //Cambiar pantalla con movimiento, deslizando
+      body: PageView(
+        // physics: BouncingScrollPhysics(),//Scroll de manera manual
+        physics:
+            NeverScrollableScrollPhysics(), //No se puede hacer Scroll de manera manual
+        children: [
+          CustomScreen(color: Colors.blue.shade50),
+          CustomScreen(color: Colors.red),
+          CustomScreen(color: Colors.blue.shade50)
+        ],
+      ),
 
-body:currentPage==0 ?CustomScreen(color: Colors.blue.shade50):currentPage==1 ? CustomScreen(color: Colors.red):CustomScreen(color: Colors.green),
+      //Cambiar pantalla con botones inferiores
+      // body: currentPage == 0
+      //     ? CustomScreen(color: Colors.blue.shade50)
+      //     : currentPage == 1
+      //         ? CustomScreen(color: Colors.red)
+      //         : CustomScreen(color: Colors.green),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
