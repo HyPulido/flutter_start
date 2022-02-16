@@ -8,6 +8,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
 
+  final PageController pageController = new PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,13 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //Cambiar pantalla con movimiento, deslizando
       body: PageView(
+        controller: pageController,
         // physics: BouncingScrollPhysics(),//Scroll de manera manual
         physics:
             NeverScrollableScrollPhysics(), //No se puede hacer Scroll de manera manual
         children: [
-          CustomScreen(color: Colors.blue.shade50),
-          CustomScreen(color: Colors.red),
-          CustomScreen(color: Colors.blue.shade50)
+          CustomScreen(color: Colors.blue.shade50, texto: "User"),
+          CustomScreen(color: Colors.red, texto: "Settings"),
+          CustomScreen(color: Colors.blue.shade50, texto: "Notifications")
         ],
       ),
 
@@ -41,6 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: currentPage,
         onTap: (index) {
           currentPage = index;
+          print('index $index');
+          // CustomScreen(color: Colors.blue.shade50, texto: "User");
+          pageController.animateToPage(index,
+              duration: Duration(milliseconds: 400), curve: Curves.easeOut);
           setState(() {});
         },
         backgroundColor: Colors.blue.shade50,
@@ -62,15 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class CustomScreen extends StatelessWidget {
   final Color color;
+  final String texto;
 
-  const CustomScreen({required this.color});
+  const CustomScreen({required this.color, required this.texto});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: color,
       child: Center(
-        child: Text('Custom Screen'),
+        child: Text(texto),
       ),
     );
   }
